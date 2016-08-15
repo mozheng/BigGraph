@@ -111,11 +111,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="HashMap.cpp" />
     <ClCompile Include="Heap.cpp" />
+    <ClCompile Include="KeyValue.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Equal.h" />
+    <ClInclude Include="HashVariables.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="HashFunc.h" />
+    <ClInclude Include="HashMap.h" />
     <ClInclude Include="Heap.h" />
+    <ClInclude Include="KeyValue.h" />
+    <ClInclude Include="Less.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

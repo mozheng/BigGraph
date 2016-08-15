@@ -21,12 +21,39 @@
     <ClCompile Include="Heap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="KeyValue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HashMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Heap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyValue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Equal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Less.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashVariables.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
