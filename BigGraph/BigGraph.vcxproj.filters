@@ -44,9 +44,6 @@
     <ClInclude Include="Equal.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="HashFunc.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Less.h">
       <Filter>头文件</Filter>
     </ClInclude>

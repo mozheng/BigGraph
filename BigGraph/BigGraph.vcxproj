@@ -119,7 +119,6 @@
     <ClInclude Include="Equal.h" />
     <ClInclude Include="HashVariables.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="HashFunc.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="KeyValue.h" />
