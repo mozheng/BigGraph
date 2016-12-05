@@ -70,7 +70,7 @@ public:
 	//返回值：成功返回true，失败返回false
 	//说明：如果点没有在图里面，再自动加入
 	/////
-	bool addNode(Node<_T> & t)
+	Graph& addNode(Node<_T> & t)
 	{
 		if (!isNodeinthisGraph(t))
 		{
@@ -79,9 +79,8 @@ public:
 			AdjlistGraph.insert(std::make_pair(NodeID, l));
 			++NodeID;
 			++NodeSize;
-			return true;
 		}
-		return false;
+		return *this;
 	}
 
 	//////////////
@@ -89,7 +88,7 @@ public:
 	//返回值：成功返回true，失败返回false
 	//说明如果边两边的点没有在图里面，可以自动加入
 	/////
-	bool addEdge(Node<_T> & from, Node<_T> & to, float weight = 1.0)
+	Graph& addEdge(Node<_T> & from, Node<_T> & to, float weight = 1.0)
 	{
 		if (!isEdgeinthisGraph(from, to))
 		{
@@ -100,9 +99,8 @@ public:
 			//邻接链表为空时直接加入
 			AdjlistGraph[fromid].push_back(GraphEdge(toid, weight));
 			++EdgeSize;
-			return true;
 		}
-		return false;
+		return *this;
 	}
 
 	//////////////
@@ -143,7 +141,7 @@ public:
 	//返回值：成功返回true，失败返回false
 	//说明：如果点没有在图里面，再自动加入
 	/////
-	bool deleteNode(Node<_T> & t)
+	Graph& deleteNode(Node<_T> & t)
 	{
 		if (isNodeinthisGraph(t))
 		{
@@ -171,19 +169,18 @@ public:
 					--NodeSize;
 				}
 			}
-			return true;
 		}
-		return false;
+		return *this;
 	}
 	//////////////
 	//功能：删除有向边。即使该边仅连接一个点，也不负责删除点
 	//返回值：成功返回true，失败返回false
 	//说明如果边两边的点没有在图里面，可以自动加入
 	/////
-	bool deleteEdge(Node<_T> & from, Node<_T> & to)
+	Graph& deleteEdge(Node<_T> & from, Node<_T> & to)
 	{
 		if (!isEdgeinthisGraph(from,to))
-			return false;
+			return *this;
 		else 
 		{
 			int fromid = element[from.data];
@@ -199,7 +196,7 @@ public:
 				else
 					++it;
 			}
-			return true;
+			return *this;
 		}
 	}
 protected:

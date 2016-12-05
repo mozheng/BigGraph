@@ -1,18 +1,11 @@
 #pragma once
 #include <vector>
-#include <string>
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
+#include <iterator>
+
 
 using std::vector;
 using std::string;
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::ostream;
-using std::ostringstream;
-using std::istringstream;
+
 using std::runtime_error;
 
 //////////////////////////////////
@@ -47,9 +40,6 @@ private:
 	matrix_t m;
 	int row, col;
 
-public:
-	int getRow() { return row; }
-	int getCol() { return col; }
 public:
 	//构造函数与析构函数
 	//构造函数分为有参数与无参数的
@@ -87,169 +77,159 @@ public:
 			return *this;
 
 	}
+	//在末尾添加一行
+	Matrix& addRow(matrix_row_t &vector_row)
+	{
+		int vector_row_size = vector_row.size();
+		if (vector_row_size == 0)return *this;
+		if (row == 0)
+		{
+			m.push_back(vector_row);
+			col = vector_row_size;
+		}
+		else
+		{
+			if (vector_row_size != col)
+				vector_row.resize(col);
+			m.push_back(vector_row);
+		}
+		++row;
+		return *this;
+	}
 
-
-	//在_row的位置插入_col一行
-	Martix& insertRow(int _row, matrix_col_t &_col)
+	//在_row的位置插入vector_row一行
+	Matrix& insertRow(int _row, matrix_row_t & vector_row)
 		throw(runtime_error)
 	{
-		if (_row > row ) 
+		//零矩阵插入时进入添加模式
+		if (_row == row &&row == 0)
+			return addRow(vector_row);
+
+		//越界添加报异常
+		if (_row > row || _row < 1)
 			throw runtime_error("matrix<T>::addRow:: row out-of-bounds");
-		m.insert(m.begin() + _row -1 , _col);
-		row = row + 1;
-		int _col_size = _col.size();
-		for (;_col_size < _col;++_col_size)
-			m.push_back(0);
+		//插入为空直接返回
+		int vector_row_size = vector_row.size();
+		if (vector_row_size == 0)return *this;
 
+
+		if (vector_row_size ！ = col)
+			vector_row.resize(col);
+		m.insert(m.begin() + _row - 1, vector_row);
+		++row;
 		return *this;
 	}
-	Martix& deleteRow(int _row)
+
+	//在_row的位置删除一行
+	//删成空矩阵时col设为0
+	Matrix& deleteRow(int _row)
 		throw(runtime_error)
 	{
-		if (_row < 1)
+		//越界添加报异常
+		if (_row < 1 || _row > row)
 			throw runtime_error("matrix<T>::deleteRow:: row out-of-bounds");
-		m.erase(m.begin() + _row);
-		row = row - 1;
+		m.erase(m.begin() + _row -1);
+		--row;
+		if (row == 0)
+			col = 0;
 		return *this;
 	}
-	void addCol(int _col, matrix_row_t &_row)
+
+	////////////////////////////////////////////////////
+	///下面是列操作
+	//在末尾添加一列
+	Matrix& addcol(matrix_col_t &vector_col)
+	{
+		int vector_col_size = vector_col.size();
+		if (vector_col_size == 0)return *this;
+		if (col == 0)
+		{
+			m.resize(vector_col_size);
+			for (int i = 0; i < vector_col_size; ++i)
+				m[i].push_back(vector_col[i]);
+			row = vector_col_size;
+		}
+		else
+		{
+			if (vector_col_size != row)
+				vector_col.resize(row);
+			for (int i = 0; i < vector_col_size; ++i)
+				m[i].push_back(vector_col[i]);
+		}
+		++col;
+		return *this;
+	}
+
+	//在_col的位置插入vector_col一行
+	Matrix& insertCol(int _col, matrix_col_t & vector_col)
 		throw(runtime_error)
 	{
-		if (_col > col)
-			throw runtime_error("matrix<T>::addCol:: col out-of-bounds");
-		matrix_t tmp;
-		tmp.resize(row);
-		for (int i = 0; i < row; i++) {
-			tmp[i].resize(col + 1);
-		}
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < _col; j++) {
-				tmp[i][j] = m[i][j];
-			}
-		}
-		for (int j = 0; j < row; j++) {
-			tmp[j][_col] = _row[j];
-		}
-		for (int i = 0; i < row; i++) {
-			for (int j = _col + 1, jj = _col; jj < col; j++, jj++) {
-				tmp[i][j] = m[i][jj];
-			}
-		}
-		m = tmp;
-		col = col + 1;
+		//零矩阵插入时进入添加模式
+		if (_col == col &&col == 0)
+			return addCol(vector_col);
+		//越界添加报异常
+		if (_col > col || col < 1)
+			throw runtime_error("matrix<T>::insertCol:: col out-of-bounds");
+		int vector_col_size = vector_col.size();
+		if (vector_col_size == 0)return *this;
+
+		if (vector_col_size ！ = row)
+			vector_col.resize(row);
+		for (int i = 0; i < row; ++i)
+			m[i].push_back(vector_col[i]);
+		++col;
+		return *this;
+
 	}
-	void deleteCol(int _col)
+	//在_col的位置删除一行
+	//删成空矩阵时row设为0
+	Matrix& deleteCol(int _col)
 	{
-		matrix_t tmp;
-		tmp.resize(row);
-		for (int i = 0; i < row; i++) {
-			tmp[i].resize(col - 1);
+		//越界添加报异常
+		if (_col < 1 || _col > col)
+			throw runtime_error("matrix<T>::deleteCol:: col out-of-bounds");
+		
+		for (vector< vector<T> >::iterator it = m.begin(); it != m.end(); ++it)
+			it->erase((it->begin()) + _col - 1);
+		--col;
+		if (col == 0)
+		{
+			m.resize(0);
+			row = 0;
 		}
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < _col; j++) {
-				tmp[i][j] = m[i][j];
-				
-			}
-		}
-		for (int i = 0; i < row; i++) {
-			for (int j = _col + 1, jj = _col; j < col; j++, jj++) {
-				tmp[i][jj] = m[i][j];
-				
-			}
-		}
-		m = tmp;
-		col = col - 1;
+		return *this;
 	}
-	// Input/Output.
-	friend
-		ostream &operator<<(ostream &out, matrix &obj)
-	{
-		out << " { " << endl;
-		for (int i = 0; i < obj.row; i++) {
-			for (int j = 0; j < obj.col; j++) {
-				if (j == (obj.col - 1)) {
-					out << obj.m[i][j] << endl;
-				}
-				else if (j == 0) {
-					out << "   " << obj.m[i][j] << " , ";
-				}
-				else {
-					out << obj.m[i][j] << " , ";
-				}
-			}
-		}
-		out << " } " << endl;
-		return out;
-	}
-	string stream_out() const
-	{
-		ostringstream out;
-		out << row << " " << col << " ";
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				out << m[i][j] << " ";
-			}
-		}
-		return out.str();
-	}
-	void stream_in(string _m)
-	{
-		istringstream in(_m, istringstream::in);
-		in >> row;
-		in >> col;
-		m.resize(row);
-		for (int i = 0; i < row; i++) {
-			m[i].resize(col);
-		}
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				in >> m[i][j];
-			}
-		}
-	}
-	string to_html() const
-	{
-		ostringstream out;
-		out << "<table border=\"1\">" << endl;
-		for (int i = 0; i < row; i++) {
-			out << "<tr>" << endl;
-			for (int j = 0; j < col; j++) {
-				out << "<td>" << m[i][j] << "</td>" << endl;
-			}
-			out << "</tr>" << endl;
-		}
-		out << "</table>" << endl;
-		return out.str();
-	}
-	// Accessors.
-	matrix_t &get_data()
+
+
+
+
+
+	matrix_t& getMatix()
 	{
 		return m;
 	}
-	int get_row() const
+	int getRowSize() const
 	{
 		return row;
 	}
-	int get_col() const
+	int getColSize() const
 	{
 		return col;
 	}
-	matrix_col_t get_row(int _row) const
+	matrix_col_t getRow(int _row) const
 	{
 		matrix_col_t c;
 		c.resize(col);
-		for (int i = 0; i < col; i++) {
+		for (int i = 0; i < col; i++)
 			c[i] = m[_row][i];
-		}
 		return c;
 	}
-	matrix_row_t get_col(int _col) const
+	matrix_row_t getCol(int _col) const
 	{
 		matrix_row_t r;
 		r.resize(row);
-		for (int i = 0; i < row; i++) {
+		for (int i = 0; i < row; i++)
 			r[i] = m[i][_col];
-		}
 		return r;
 	}
 };
