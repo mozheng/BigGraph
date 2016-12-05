@@ -114,15 +114,19 @@
     <ClCompile Include="HashMap.cpp" />
     <ClCompile Include="Heap.cpp" />
     <ClCompile Include="KeyValue.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Martix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equal.h" />
     <ClInclude Include="HashVariables.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="HashMap.h" />
-    <ClInclude Include="Heap.h" />
+    <ClInclude Include="Edge.h" />
     <ClInclude Include="KeyValue.h" />
     <ClInclude Include="Less.h" />
+    <ClInclude Include="Martix.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>

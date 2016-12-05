@@ -5,7 +5,7 @@
 
 #include"Equal.h"
 #include"Less.h"
-#include"HashFunc.h"
+
 
 /*
 	下里大部分是全局外部变量

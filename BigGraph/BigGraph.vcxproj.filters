@@ -27,12 +27,15 @@
     <ClCompile Include="HashMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Martix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Heap.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="KeyValue.h">
@@ -51,6 +54,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HashVariables.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Martix.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
