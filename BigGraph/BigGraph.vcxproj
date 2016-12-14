@@ -116,6 +116,8 @@
     <ClCompile Include="KeyValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Martix.cpp" />
+    <ClCompile Include="SyncQueue.h" />
+    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equal.h" />
@@ -127,10 +129,12 @@
     <ClInclude Include="Less.h" />
     <ClInclude Include="Martix.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
